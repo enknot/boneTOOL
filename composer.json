@@ -16,5 +16,12 @@
     },
     "autoload": {
         "classmap": ["src/"]
+    },
+    "extra": {
+        "component": {
+            "scripts": [
+                "include/js/app.js"
+            ]
+        }
     }
 }
