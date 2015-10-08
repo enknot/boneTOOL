@@ -2,6 +2,10 @@
     "name": "enknot/bonetool",
     "description": "Tools for use with the Surebert Framework",
     "license": "MIT",
+    "keywords": [
+        "surebert",
+        "tools"
+    ],
     "authors": [
         {
             "name": "Anthony Cashaw",
@@ -12,9 +16,17 @@
     "require": { 
         "surebert/framework": "dev-master",
 	"surebert/toolkit" : "dev-master",
-	"components/jquery": "^2.1"
+	"components/jquery": "^2.1",
+	"robloach/component-installer": "*"
     },
     "autoload": {
         "classmap": ["src/"]
+    },
+    "extra": {
+        "component": {
+            "scripts": [
+                "include/js/app.js"
+            ]
+        }
     }
 }
