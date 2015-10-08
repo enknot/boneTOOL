@@ -1,0 +1,19 @@
+{
+    "name": "enknot/bonetool",
+    "description": "Tools for use with the Surebert Framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anthony Cashaw",
+            "email": "dev@enknot.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": { 
+        "surebert/framework": "dev-master",
+	"surebert/toolkit" : "dev-master"
+    },
+    "autoload": {
+        "classmap": ["src/"]
+    }
+}
