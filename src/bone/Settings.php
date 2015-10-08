@@ -15,6 +15,7 @@ namespace bone;
 class Settings{
   
   public static $db = null; 
+  public static $dev_group = null; 
   public static $faux_class = 'null';
   public static $layout_view = '\layout\default\sixteen_wide';
   public static $wrapper_view = 'index';
