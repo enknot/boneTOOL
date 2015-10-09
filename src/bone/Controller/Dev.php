@@ -3,8 +3,8 @@
 namespace Controllers;
 
 use \App as App;
-use \Models\Variable as Vars;
-use \Models\Faux as Faux;
+use \bone\Variable as Vars;
+use \bone\Faux as Faux;
 
 class Dev extends Index {
 
@@ -13,8 +13,23 @@ class Dev extends Index {
      * @var \bone\Faux 
      */
     private $faux;
+    
+    /**
+     * Name of the extened Faux class for this app
+     * @var type 
+     */
     public $faux_class_name;
+    
+    /**
+     *
+     * @var type 
+     */
     public $layout;
+    
+    /**
+     *
+     * @var type 
+     */    
     public $wrapper;
 
     /**
@@ -69,14 +84,18 @@ class Dev extends Index {
      */
     public function actAs() {
 
-        if (defined(\bone\Settings::$dev_group)) {
+        if (\bone\Settings::$dev_group) {
+
             $user_id = isset($this->request->args[0]) ? $this->request->args[0] : App::$real_user->roswell_id;
-            if ($user_id == App::$real_user->roswell_id || App::$real_user->belongsToGroup(BONE_DEV)
+            
+            if ($user_id == App::$real_user->roswell_id || App::$real_user->belongsToGroup(\bone\Settings::$dev_group)
             ) {
 
 
                 unset($_SESSION['user']);
                 App::setUser($user_id);
+                
+
                 App::$logger->delegation(Array(
                     'action' => 'login',
                     'roswell_id' => App::$real_user->roswell_id,
@@ -87,8 +106,31 @@ class Dev extends Index {
             }
             return false;
         } else {
+                        
             $this->sendRedirect('/');
         }
     }
+
+//    public function actAsY() {
+//
+//        $user_id = isset($this->request->args[0]) ? $this->request->args[0] : App::$real_user->roswell_id;
+//
+//        if ($user_id == App::$real_user->roswell_id || App::$real_user->belongsToGroup(TASKTOOL_DEVELOP)
+//        ) {
+//
+//
+//            unset($_SESSION['user']);
+//            App::setUser($user_id);
+//            App::$logger->delegation(Array(
+//                'action' => 'login',
+//                'roswell_id' => App::$real_user->roswell_id,
+//                'acting_as' => $user_id
+//            ));
+//            $this->sendRedirect('/');
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
 }
