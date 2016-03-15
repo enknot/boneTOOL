@@ -15,7 +15,6 @@
     "minimum-stability": "dev",
     "require": { 
         "surebert/framework": "dev-master",
-	"surebert/toolkit" : "dev-master",
 	"components/jquery": "^2.1",
 	"robloach/component-installer": "*"
     },
