@@ -15,17 +15,9 @@
     "minimum-stability": "dev",
     "require": { 
         "surebert/framework": "dev-master",
-	"components/jquery": "^2.1",
 	"robloach/component-installer": "*"
     },
     "autoload": {
         "classmap": ["src/"]
-    },
-    "extra": {
-        "component": {
-            "scripts": [
-                "include/js/app.js"
-            ]
-        }
     }
 }
