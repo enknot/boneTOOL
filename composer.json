@@ -14,7 +14,7 @@
     ],
     "minimum-stability": "dev",
     "require": { 
-        "surebert/framework": "dev-master",
+        "surebert/framework": "1.9.2",
 	"robloach/component-installer": "*"
     },
     "autoload": {
