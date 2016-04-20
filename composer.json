@@ -14,8 +14,7 @@
     ],
     "minimum-stability": "dev",
     "require": { 
-        "surebert/framework": "1.9.2",
-	"robloach/component-installer": "*"
+        "surebert/framework": "1.9.2"
     },
     "autoload": {
         "classmap": ["src/"]
