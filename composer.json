@@ -14,7 +14,7 @@
     ],
     "minimum-stability": "dev",
     "require": { 
-        "surebert/framework": "1.9.2"
+        "surebert/framework": "1.9.2+"
     },
     "autoload": {
         "classmap": ["src/"]
