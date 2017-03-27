@@ -14,6 +14,8 @@ class JSONResponse {
   
   private $values = array();
   
+  public $parent = null;
+  
   private static $valid_message = array('error', 'warning', 'success');
   
   public function message($message, $type = 'error'){    
@@ -33,6 +35,7 @@ class JSONResponse {
     }
   }
   
+
   
   public function value($name, $value){
     $this->values[$name] = $value;
@@ -55,6 +58,11 @@ class JSONResponse {
 
     //callbacks
    if(count($this->callback) > 0)$ret['callbacks'] = $this->callback;
+   
+   
+   if(!is_null($this->parent)){
+       $ret['messages']['parent'] = $this->parent;
+   }
    
    return json_encode($ret);
     

@@ -51,13 +51,34 @@ class Dev extends Index {
      * @input_as_array false
      */
     public function reset() {
-
         $gate = (isset($this->request->args[0])) ? $this->request->args[0] : null;
         $this->content = (is_null($gate)) ? "<p>Must send a table name in the path" .
                 " beyond 'reset/'</p>" : $this->faux->reset($gate);
-
-        $this->layout = $this->renderView(\bone\Settings::$layout_view);
         return $this->renderView(\bone\Settings::$wrapper_view);
+    }
+    
+    
+    /**
+     * @servable true
+     * @http_method get
+     * @input_as_array false
+     */
+    public function init() {
+        $data['init'] = $this->faux->init();
+        $this->content = print_pre($data,1);
+        return $this->renderView(\bone\Settings::$wrapper_view, $data);
+    }
+    
+    /**
+     * @servable true
+     * @http_method get
+     * @input_as_array false
+     */
+    public function start() {
+        $data['start'] = $this->faux->start();
+        $data['init'] = $this->faux->init();
+        $this->content = print_pre($data,1);
+        return $this->renderView(\bone\Settings::$wrapper_view, $data);
     }
 
     /**
@@ -71,7 +92,6 @@ class Dev extends Index {
         $gate = (isset($this->request->args[0])) ? $this->request->args[0] : null;
         $this->content = (is_null($gate)) ? "<p>Must send a table name in the path" .
                 " beyond 'populate/'</p>" : $this->faux->populate($gate);
-        $this->layout = $this->renderView(\bone\Settings::$layout_view);
         return $this->renderView(\bone\Settings::$wrapper_view);
     }
 
@@ -84,6 +104,7 @@ class Dev extends Index {
      */
     public function actAs() {
 
+        
         if (\bone\Settings::$dev_group) {
 
             $user_id = isset($this->request->args[0]) ? $this->request->args[0] : App::$real_user->roswell_id;
@@ -111,26 +132,5 @@ class Dev extends Index {
         }
     }
 
-//    public function actAsY() {
-//
-//        $user_id = isset($this->request->args[0]) ? $this->request->args[0] : App::$real_user->roswell_id;
-//
-//        if ($user_id == App::$real_user->roswell_id || App::$real_user->belongsToGroup(TASKTOOL_DEVELOP)
-//        ) {
-//
-//
-//            unset($_SESSION['user']);
-//            App::setUser($user_id);
-//            App::$logger->delegation(Array(
-//                'action' => 'login',
-//                'roswell_id' => App::$real_user->roswell_id,
-//                'acting_as' => $user_id
-//            ));
-//            $this->sendRedirect('/');
-//            return true;
-//        }
-//
-//        return false;
-//    }
 
 }

@@ -13,4 +13,3 @@ class BoneInclude extends Index{
   }
   
 }
-?>

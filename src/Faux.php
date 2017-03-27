@@ -4,7 +4,7 @@ namespace bone;
 
 abstract class Faux {
 
-    public $valid_tables = ['training', 'competency'];
+    public $valid_tables = [];
     private $db = null;
 
     public function __construct(\PDO $conn) {
@@ -27,7 +27,20 @@ abstract class Faux {
         $data = Faux::data($table_name);
         Faux::truncate($table_name, $reset);
         Faux::replaceInto($table_name, $data);
-        return "<p>Resetting '$table_name' data. Data now relects the following:<pre> " . print_r($data, TRUE) . "</p>";
+        
+        if(method_exists($this, 'clean'))
+            $clean = $this->clean();
+        
+        if(method_exists($this, 'init'))
+            $init = $this->init();
+        
+        return "<p>Resetting '$table_name' data. Data now relects the following:<pre> " 
+                . print_r($data, TRUE) . "</p> \n" . print_pre($clean, 1) . "</p> \n" . print_pre($init, 1);
+    }
+
+
+    protected function clean(){
+        return false;
     }
 
     /**
@@ -94,9 +107,9 @@ abstract class Faux {
 
 
         $prep = [];
-        
+
         foreach ($data as $i => $row) {
-            $prep = $this->prepSQL($table, $row, $prep); 
+            $prep = $this->prepSQL($table, $row, $prep);
             $params = paramify($row);
             $prep['stmt']->execute($params);
             $rerr[$i] = $prep['stmt']->errorInfo();
@@ -107,7 +120,6 @@ abstract class Faux {
 
     /**
      * Prepares each row of data for insert. Updates params and SQL when needed.
-     * @START_HERE [10/7/2015]: Compare info in $ret w/ $last_round if it's same return fast.
      * @param type $data_row
      * @param type $last_round
      * @return type
