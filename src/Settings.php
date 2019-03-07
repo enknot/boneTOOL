@@ -19,6 +19,9 @@ class Settings{
   public static $faux_class = 'null';
   public static $layout_view = '\layout\default\sixteen_wide';
   public static $wrapper_view = 'index';
+  public static $user_id_member = 'id';
+  public static $quick_user_ids = [];
+
       
   public static function init(Array $values){
     foreach($values as $property => $value){  
