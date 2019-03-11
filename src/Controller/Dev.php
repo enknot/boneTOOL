@@ -107,19 +107,19 @@ class Dev extends Index {
         
         if (\bone\Settings::$dev_group) {
 
-            $user_ident = isset($this->request->args[0]) ? $this->request->args[0] : App::$real_user->roswell_id;
+            $u_id_member = \bone\Settings::$user_id_member;
+
+            $user_ident = isset($this->request->args[0]) ? $this->request->args[0] : App::$real_user->$u_id_member;
 
 
             //check with quick user id number
             if(isset(\bone\Settings::$quick_user_ids[$user_ident])){
                 $user_id = \bone\Settings::$quick_user_ids[$user_ident];
             }else{
-                $user_id = $user_ident;
+                $user_id = App::$real_user->$u_id_member;
+                \App::$logger->act_as_fail(['for' => $user_ident]);
             }
-            
-            
-            $u_id_member = \bone\Settings::$user_id_member;
-            
+
             if ($user_id == App::$real_user->$u_id_member ||
                 App::$real_user->belongsToGroup(\bone\Settings::$dev_group)
             ) {
@@ -131,7 +131,8 @@ class Dev extends Index {
 
                 App::$logger->delegation(Array(
                     'action' => 'login',
-                    'roswell_id' => App::$real_user->$u_id_member,
+                    'user id member' => $u_id_member,
+                    'user_ident' => App::$real_user->$u_id_member,
                     'acting_as' => $user_id
                 ));
                 $this->sendRedirect('/');
