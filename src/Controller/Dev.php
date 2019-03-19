@@ -115,6 +115,8 @@ class Dev extends Index {
             //check with quick user id number
             if(isset(\bone\Settings::$quick_user_ids[$user_ident])){
                 $user_id = \bone\Settings::$quick_user_ids[$user_ident];
+            }elseif(is_numeric($user_ident)){
+                $user_id = $user_ident;
             }else{
                 $user_id = App::$real_user->$u_id_member;
                 \App::$logger->act_as_fail(['for' => $user_ident]);
